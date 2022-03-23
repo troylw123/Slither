@@ -11,8 +11,11 @@ namespace Slither.Data.Entities
     {
         [Key]
         public int Id { get; set; }
-        // [ForeignKey(nameof(Owner))]
-        public int OwnerId { get; set; }
-        // public UserEntity Owner;
+        
+        [ForeignKey("Owner")]
+        int AuthorId { get; set; }
+        public UserEntity Owner { get; set; }
+
+        
     }
 }

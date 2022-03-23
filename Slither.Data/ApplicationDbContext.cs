@@ -13,7 +13,7 @@ namespace Slither.Data
         {
 
         }
-
+        public DbSet<ReplyEntity> Replies { get; set;}
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<PostEntity> Posts { get; set; }
         public DbSet<LikeEntity> Likes { get; set; }

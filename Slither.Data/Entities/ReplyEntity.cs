@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +16,12 @@ namespace Slither.Data.Entities
         [Required]
         public string Text { get; set; }
 
-        [Required]
-        public int AuthorId { get; set; }
+        [ForeignKey("Comment")]
+        public int CommentId { get; set; }
+        public CommentEntity Comment { get; set; }
+
+        [ForeignKey("Owner")]
+        int AuthorId { get; set; }
+        public UserEntity Owner { get; set; }
     }
 }
