@@ -8,7 +8,7 @@ namespace Slither.Data.Entities
 {
     public class CommentEntity
     {
-        [key]
+        [Key]
         public int Id { get; set; }
 
         [Required]
