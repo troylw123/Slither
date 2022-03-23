@@ -11,8 +11,11 @@ namespace Slither.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
+
         }
+
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<PostEntity> Posts { get; set; }
         public DbSet<LikeEntity> Likes { get; set; }
 
     }
