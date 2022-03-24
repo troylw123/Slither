@@ -19,4 +19,18 @@ namespace Slither.Services.Comment
                 throw new Exception("Attempted to build CommentService without User Id claim.");
         }
     }
+    public async Task<bool> CreateCommentAsync(CommentCreate request)
+    {
+        var commentEntity = new CommentEntity
+        {
+            Title = request.Title,
+            Content = request.Content,
+            CreatedUtc = DateTimeOffset.Now,
+            OwnerId = _userId
+        };
+        _dbContext.Comments.Add(commentEntity);
+        var numberOfChanges = await _dbContext.SaveChangesAsync();
+        return numberOfChanges == 1;
+    }
+
 }

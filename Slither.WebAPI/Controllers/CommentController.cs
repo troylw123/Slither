@@ -21,4 +21,17 @@ namespace Slither.WebAPI.Controllers
             _commentService = commentService;
         }
     }
+       // POST api/Comment
+    [HttpPost]
+    public async Task<IActionResult> CreateComment([FromBody] CommentCreate request)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+   
+        if (await _commentService.CreateCommentAsync(request))
+            return Ok("Comment created successfully.");
+   
+       return BadRequest("Comment could not be created.");
+   }
+
 }
