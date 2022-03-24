@@ -18,20 +18,20 @@ namespace Slither.WebAPI.Controllers
         {
             _service = service;
         }
-    
-    [HttpPost("Register")]
-    public async Task<IActionResult> RegisterUser([FromBody] UserRegister model)
-    {
-        if (!ModelState.IsValid)
+
+        [HttpPost("Register")]
+        public async Task<IActionResult> RegisterUser([FromBody] UserRegister model)
         {
-            return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var registerResult = await _service.RegisterUserAsync(model);
+            if (registerResult)
+            {
+                return Ok("User was registered.");
+            }
+            return BadRequest("User could not be registered.");
         }
-        var registerResult = await _service.RegisterUserAsync(model);
-        if (registerResult)
-        {
-            return Ok("User was registered.");
-        }
-        return BadRequest("User could not be registered.");
-    }
     }
 }
