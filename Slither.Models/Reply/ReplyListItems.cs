@@ -9,6 +9,5 @@ namespace Slither.Data.Reply
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public DateTimeOffset CreatedUtc { get; set; }
     }
 }

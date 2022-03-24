@@ -36,7 +36,7 @@ namespace Slither.WebAPI
             services.AddHttpContextAccessor();
 
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IReplyServices, ReplySevices>();
+            services.AddScoped<IReplyServices, ReplyService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
