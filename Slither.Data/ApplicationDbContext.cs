@@ -9,6 +9,7 @@ namespace Slither.Data
 {
     public class ApplicationDbContext : DbContext
     {
+       
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
@@ -19,6 +20,6 @@ namespace Slither.Data
         public DbSet<CommentEntity> Comments { get; set; }
         public DbSet<ReplyEntity> Replies { get; set; }
         public DbSet<LikeEntity> Likes { get; set; }
-
+        
     }
 }
