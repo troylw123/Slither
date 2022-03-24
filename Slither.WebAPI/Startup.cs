@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Slither.Data;
+using Slither.Services.Like;
 using Slither.Services.User;
 
 namespace Slither.WebAPI
@@ -32,7 +33,10 @@ namespace Slither.WebAPI
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
+            services.AddHttpContextAccessor();
+
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ILikeService, LikeService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
