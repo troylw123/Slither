@@ -22,4 +22,12 @@ namespace Slither.WebAPI.Controllers
             _replyService = replyService;
         }
     }
+
+    //GET api/Reply
+    [HttpGet]
+    public async Task<IActionResult> GetAllReply()
+    {
+        var reply = await _replyService.GetAllReplyAsync();
+        return Ok(reply);
+    }
 }
