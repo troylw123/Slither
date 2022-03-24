@@ -29,6 +29,7 @@ namespace Slither.Services.User
                 Password = model.Password,
                 DateCreated = DateTime.Now
             };
+
             _context.Users.Add(entity);
             var numberOfChanges = await _context.SaveChangesAsync();
 
