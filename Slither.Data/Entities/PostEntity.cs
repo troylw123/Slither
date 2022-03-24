@@ -17,8 +17,8 @@ namespace Slither.Data.Entities
 
         [Required]
         public string PostText { get; set; }
-        [ForeignKey("Owner")]
-        int AuthorId { get; set; }
+        [ForeignKey(nameof(Owner))]
+        public int? AuthorId { get; set; }
         public UserEntity Owner { get; set; }
 
         public List<CommentEntity> Comments { get; set; }

@@ -16,12 +16,12 @@ namespace Slither.Data.Entities
         [Required]
         public string Text { get; set; }
 
-        [ForeignKey("Comment")]
-        public int CommentId { get; set; }
+        [ForeignKey(nameof(Comment))]
+        public int? CommentId { get; set; }
         public CommentEntity Comment { get; set; }
 
-        [ForeignKey("Owner")]
-        int AuthorId { get; set; }
+        [ForeignKey(nameof(Owner))]
+        public int? AuthorId { get; set; }
         public UserEntity Owner { get; set; }
     }
 }
