@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,11 +17,13 @@ namespace Slither.Data.Entities
 
         [Required]
         public string PostText { get; set; }
+        [ForeignKey(nameof(Owner))]
+        public int? AuthorId { get; set; }
+        public UserEntity Owner { get; set; }
 
-        // list of comments
-        //list of likes
+        public List<CommentEntity> Comments { get; set; }
 
-        // Foreign key adaptaion Author Id
+        public List<LikeEntity> Likes { get; set; }
 
     }
 }

@@ -4,21 +4,24 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Slither.Data.Entities
 {
-    public class LikeEntity
+    public class ReplyEntity
     {
         [Key]
-        public int? Id { get; set; }
-        [ForeignKey(nameof(Post))]
-        public int PostId { get; set; }
-        public  PostEntity Post { get; set; }
-        
+        public int Id { get; set; }
+
+        [Required]
+        public string Text { get; set; }
+
+        [ForeignKey(nameof(Comment))]
+        public int? CommentId { get; set; }
+        public CommentEntity Comment { get; set; }
+
         [ForeignKey(nameof(Owner))]
         public int? AuthorId { get; set; }
         public UserEntity Owner { get; set; }
-
-        
     }
 }
