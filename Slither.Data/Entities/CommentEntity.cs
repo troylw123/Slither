@@ -19,14 +19,15 @@ namespace Slither.Data.Entities
         [Required]
         public DateTime DateCreated { get; set; }
         
-        [ForeignKey("Owner")]
-        int AuthorId { get; set; }
+        [ForeignKey(nameof(Owner))]
+        public int? AuthorId { get; set; }
         public UserEntity Owner { get; set; }
+        
 
         public List<ReplyEntity> Replies { get; set; }
 
-        [ForeignKey("Post")]
-        int CommentId { get; set; }
+        [ForeignKey(nameof(Post))]
+        public int? PostId { get; set; }
         public PostEntity Post { get; set; }
         
     }
