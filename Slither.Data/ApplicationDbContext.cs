@@ -19,6 +19,6 @@ namespace Slither.Data
         public DbSet<CommentEntity> Comments { get; set; }
         public DbSet<ReplyEntity> Replies { get; set; }
         public DbSet<LikeEntity> Likes { get; set; }
-
+        
     }
 }
