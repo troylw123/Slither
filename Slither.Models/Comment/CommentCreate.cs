@@ -14,7 +14,8 @@ namespace Slither.Models.Comment
         public string Comment { get; set; }
         
         [Required]
-        [MaxLength(8000, ErrorMessage = "{0} must contain no more than {1} characters.")]
-        public string DateCreated { get; set; }
+    
+        public DateTime DateCreated { get; set; }
+        public int AuthorId {get; set;}
     }
 }

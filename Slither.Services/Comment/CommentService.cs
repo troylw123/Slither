@@ -15,10 +15,16 @@ namespace Slither.Services.Comment
     {
         private readonly int _userId;
         private readonly ApplicationDbContext _dbContext;
+
+        public CommentService(ApplicationDbContext dbContext)
+        {
+
+            _dbContext = dbContext;
+        }
         public async Task<IEnumerable<CommentListItem>> GetAllCommentsAsync()
         {
                 var comments = await _dbContext.Comments
-                    .Where(entity => entity.AuthorId == _userId)
+                    // .Where(entity => entity.AuthorId == _userId)
                     .Select(entity => new CommentListItem
                     {
                         Id = entity.Id,
@@ -29,17 +35,7 @@ namespace Slither.Services.Comment
 
                 return comments;
             }
-        public CommentService(IHttpContextAccessor httpContextAccessor, ApplicationDbContext dbContext)
-        {
-
-            var userClaims = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
-            var value = userClaims.FindFirst("Id")?.Value;
-            var validId = int.TryParse(value, out _userId);
-            if (!validId)
-                throw new Exception("Attempted to build CommentService without User Id claim.");
-
-            _dbContext = dbContext;
-        }
+        
 
         public async Task<bool> CreateCommentAsync(CommentCreate request)
         {
@@ -47,7 +43,7 @@ namespace Slither.Services.Comment
             {
                 Comment = request.Comment,
                 DateCreated = DateTime.Now,
-                AuthorId = _userId
+                AuthorId = request.AuthorId
             };
             _dbContext.Comments.Add(commentEntity);
             var numberOfChanges = await _dbContext.SaveChangesAsync();
