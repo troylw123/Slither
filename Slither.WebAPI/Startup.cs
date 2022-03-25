@@ -13,9 +13,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Slither.Data;
+using Slither.Services.Comment;
 using Slither.Services.Posts;
 using Slither.Services.Like;
 using Slither.Services.User;
+using Slither.Services.Reply;
 
 namespace Slither.WebAPI
 {
@@ -36,9 +38,11 @@ namespace Slither.WebAPI
 
             services.AddHttpContextAccessor();
 
+            services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<ILikeService, LikeService>();
+            services.AddScoped<IReplyServices, ReplyService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
