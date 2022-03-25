@@ -13,7 +13,7 @@ namespace Slither.Services.Comment
 {
     public class CommentService : ICommentService
     {
-        private readonly int _userId;
+        // private readonly int _userId;
         private readonly ApplicationDbContext _dbContext;
 
         public CommentService(ApplicationDbContext dbContext)

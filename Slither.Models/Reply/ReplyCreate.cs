@@ -11,5 +11,8 @@ namespace Slither.Models.Reply
         [Required]
         [MaxLength(8000, ErrorMessage = "{0} must contain no more than {1} characters.")]
         public string Text { get; set; }
+
+        public int CommentId {get; set;}
+        public int AuthorId {get; set;}
     }
 }

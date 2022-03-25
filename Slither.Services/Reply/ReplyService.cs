@@ -14,23 +14,17 @@ namespace Slither.Services.Reply
 {
     public class ReplyService : IReplyServices
     {
-        private readonly int _userId;
+        // private readonly int _userId;
         private readonly ApplicationDbContext _dbContext;
-        public ReplyService(IHttpContextAccessor httpContextAccessor, ApplicationDbContext dbContext)
+        public ReplyService(ApplicationDbContext dbContext)
         {
-            var userClaims = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
-            var value = userClaims.FindFirst("Id")?.Value;
-        
-            var validId = int.TryParse(value, out _userId);
-            if(!validId)
-                throw new Exception("Attempted to build ReplyService without User Id claim");
 
                 _dbContext = dbContext;
         }
         public async Task<IEnumerable<ReplyListItems>> GetAllReplyListItemsAsync()
         {
             var reply = await _dbContext.Replies
-                .Where(entity => entity.AuthorId == _userId)
+                // .Where(entity => entity.AuthorId == _userId)
                 .Select(entity => new ReplyListItems
                 {
                     Id = entity.Id,
@@ -45,7 +39,8 @@ namespace Slither.Services.Reply
             var replyEntity = new ReplyEntity
             {
                 Text = request.Text,
-                AuthorId = _userId
+                CommentId = request.CommentId,
+                AuthorId = request.AuthorId
             };
 
             _dbContext.Replies.Add(replyEntity);

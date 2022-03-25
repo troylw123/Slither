@@ -13,7 +13,7 @@ using Slither.Models.Reply;
 
 namespace Slither.WebAPI.Controllers
 {
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ReplyController : ControllerBase
@@ -39,7 +39,7 @@ namespace Slither.WebAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if (await _replyService.CreateReplyAsync(request));
+            if (await _replyService.CreateReplyAsync(request))
                 return Ok("Reply created successfully");
 
             return BadRequest("Reply could not be created");
