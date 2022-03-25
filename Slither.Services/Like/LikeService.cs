@@ -4,24 +4,20 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Slither.Data;
 using Slither.Data.Entities;
+using Slither.Models.Like;
 
 namespace Slither.Services.Like
 {
     public class LikeService : ILikeService
     {
-        private readonly int _userId;
+        // private readonly int _userId;
         private readonly ApplicationDbContext _dbContext;
-        public LikeService(IHttpContextAccessor httpContextAccessor, ApplicationDbContext dbContext)
+        public LikeService(ApplicationDbContext dbContext)
         {
-            var userClaims = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
-            var value = userClaims.FindFirst("Id")?.Value;
-            var validId = int.TryParse(value, out _userId);
-            if (!validId)
-                throw new Exception("Attempted to build LikeService without User Id claim.");
-
-            _dbContext = dbContext;
+           _dbContext = dbContext;
         }
 
         public async Task<bool> LikePostAsync(LikeEntity meLike)
@@ -37,20 +33,18 @@ namespace Slither.Services.Like
             return numberOfChanges == 1;
         }
 
-        private Claim[] GetClaims(UserEntity user)
+        public async Task<IEnumerable<LikeDetail>> GetAllLikesAsync(int postId)
         {
-            var fullName = $"{user.FirstName} {user.LastName}";
-            var name = !string.IsNullOrWhiteSpace(fullName) ? fullName : user.Username;
-
-            var claims = new Claim[]
+            var likes = await _dbContext.Likes
+            .Where(entity => entity.PostId == postId)
+            .Select(entity => new LikeDetail
             {
-                new Claim("Id", user.Id.ToString()),
-                new Claim("Username", user.Username),
-                new Claim("Email", user.Email),
-                new Claim("Name", name)
-            };
-
-            return claims;
+                Id = entity.Id,
+                AuthorId = entity.AuthorId
+            })
+            .ToListAsync();
+            return likes;
         }
+
     }
 }
