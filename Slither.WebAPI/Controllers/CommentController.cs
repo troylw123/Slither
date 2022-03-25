@@ -10,7 +10,7 @@ using Slither.Models.Comment;
 
 namespace Slither.WebAPI.Controllers
 {
-    [Authorize]
+    // [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CommentController : ControllerBase
