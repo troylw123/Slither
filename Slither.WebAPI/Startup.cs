@@ -42,6 +42,7 @@ namespace Slither.WebAPI
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<ILikeService, LikeService>();
+            services.AddScoped<IReplyServices, ReplyService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
