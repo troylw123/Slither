@@ -20,13 +20,14 @@ namespace Slither.Services.User
         }
         public async Task<bool> RegisterUserAsync(UserRegister model)
         {
-            if (await GetUserByEmailAsync(model.Email) != null || await GetUserByUsernameAsync(model.Username) != null)
-                return false;
+            if (await GetUserByEmailAsync(model.Email) != null || await GetUserByUsernameAsync(model.Username) != null )
+            return false;
 
             var entity = new UserEntity
             {
                 Email = model.Email,
                 Username = model.Username,
+                Password = model.Password,
                 DateCreated = DateTime.Now
             };
 
