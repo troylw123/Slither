@@ -29,5 +29,13 @@ namespace Slither.WebAPI.Controllers
 
             return BadRequest("Attempt failed. Please try again.");
         }
+        [HttpGet("{postId:int}")]
+        [ProducesResponseType(typeof(IEnumerable<LikeEntity>), 200)]
+        public async Task<IActionResult> GetLikesByPostId([FromRoute] int postId)
+        {
+            var likes = await _likeService.GetAllLikesAsync(postId);
+            return likes is not null ? Ok(likes) : NotFound();
+        }
+    
     }
 }
