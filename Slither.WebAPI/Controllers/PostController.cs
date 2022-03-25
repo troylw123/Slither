@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Slither.Models.Posts;
@@ -44,6 +45,19 @@ namespace Slither.WebAPI.Controllers
 
         }
 
+        [Authorize]
+        [HttpPut]
+        public async Task<IActionResult> UpdatePostAsync([FromBody] PostUpdate request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            return await _postService.UpdatePostAsync(request)
+            ? Ok("Post was updated successfully.")
+            : BadRequest("Post couldn't be updated.");
+        }
+
+        [Authorize]
         [HttpDelete("{postId:int}")]
         public async Task<IActionResult> DeletePost([FromRoute] int postId)
         {

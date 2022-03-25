@@ -56,6 +56,23 @@ namespace Slither.Services.Posts
             return (IEnumerable<ListPosts>)posts;
         }
 
+
+        public async Task<bool> UpdatePostAsync(PostUpdate request)
+        {
+            var postEntity = await _postContext.Posts.FindAsync(request.PostId);
+
+            if (postEntity?.AuthorId != _userId)
+                return false;
+
+            postEntity.PostTitle = request.PostTitle;
+            postEntity.PostText = request.PostText;
+
+            var numberOfChanges = await _postContext.SaveChangesAsync();
+
+            return numberOfChanges == 1;
+        }
+
+
         public async Task<bool> DeletePostAsync(int postId)
         {
             var postEntity = await _postContext.Posts.FindAsync(postId);
