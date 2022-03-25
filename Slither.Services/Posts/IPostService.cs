@@ -10,6 +10,7 @@ namespace Slither.Services.Posts
     {
         Task<bool> CreatePostAsync(CreatePost model);
         Task<IEnumerable<ListPosts>> GetAllPostsAsync();
-
+        Task<bool> UpdatePostAsync(PostUpdate request);
+        Task<bool> DeletePostAsync(int postId);
     }
 }

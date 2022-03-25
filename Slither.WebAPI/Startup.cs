@@ -17,6 +17,7 @@ using Slither.Services.Comment;
 using Slither.Services.Posts;
 using Slither.Services.Like;
 using Slither.Services.User;
+using Slither.Services.Reply;
 
 namespace Slither.WebAPI
 {
@@ -41,7 +42,7 @@ namespace Slither.WebAPI
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<ILikeService, LikeService>();
-            
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
