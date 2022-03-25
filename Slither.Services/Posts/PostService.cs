@@ -11,7 +11,7 @@ namespace Slither.Services.Posts
 {
     public class PostService : IPostService
     {
-        private readonly int _postId;
+        // private readonly int _postId;
         private readonly ApplicationDbContext _postContext;
         public PostService(ApplicationDbContext postContext)
         {
@@ -35,7 +35,7 @@ namespace Slither.Services.Posts
         public async Task<IEnumerable<ListPosts>> GetAllPostsAsync()
         {
             var posts = await _postContext.Posts
-            .Where(entity => entity.PostId == _postId)
+            // .Where(entity => entity.PostId == _postId)
             .Select(entity => new ListPosts
             {
                 PostId = entity.PostId,
