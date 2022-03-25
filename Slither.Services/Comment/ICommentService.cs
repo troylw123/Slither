@@ -10,5 +10,6 @@ namespace Slither.Services.Comment
     {
         Task<bool> CreateCommentAsync(CommentCreate request);
         Task<IEnumerable<CommentListItem>> GetAllCommentsAsync();
+
     }
 }

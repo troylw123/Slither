@@ -34,7 +34,6 @@ namespace Slither.WebAPI
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
             services.AddHttpContextAccessor();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<ICommentService, CommentService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
