@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Slither.Data;
 using Slither.Data.Entities;
@@ -13,9 +15,16 @@ namespace Slither.Services.Posts
     {
         // private readonly int _postId;
         private readonly ApplicationDbContext _postContext;
-        public PostService(ApplicationDbContext postContext)
+        private readonly int _userId;
+        public PostService(ApplicationDbContext postContext, IHttpContextAccessor httpContextAccessor)
         {
             _postContext = postContext;
+
+            var userClaims = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
+            var value = userClaims.FindFirst("Id")?.Value;
+            var validId = int.TryParse(value, out _userId);
+            if (!validId)
+                throw new Exception("Attempted to build PostService without User Id claim");
         }
         public async Task<bool> CreatePostAsync(CreatePost model)
         {
@@ -45,6 +54,17 @@ namespace Slither.Services.Posts
             .ToListAsync();
 
             return (IEnumerable<ListPosts>)posts;
+        }
+
+        public async Task<bool> DeletePostAsync(int postId)
+        {
+            var postEntity = await _postContext.Posts.FindAsync(postId);
+
+            if (postEntity?.AuthorId != _userId)
+                return false;
+
+            _postContext.Posts.Remove(postEntity);
+            return await _postContext.SaveChangesAsync() == 1;
         }
     }
 }

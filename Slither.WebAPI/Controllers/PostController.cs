@@ -43,5 +43,13 @@ namespace Slither.WebAPI.Controllers
             return Ok(posts);
 
         }
+
+        [HttpDelete("{postId:int}")]
+        public async Task<IActionResult> DeletePost([FromRoute] int postId)
+        {
+            return await _postService.DeletePostAsync(postId)
+            ? Ok($"Post {postId} was deleted successfully.")
+            : BadRequest($"Post {postId} could not be deleted.");
+        }
     }
 }
