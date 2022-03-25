@@ -10,7 +10,7 @@ namespace Slither.Data.Entities
     public class LikeEntity
     {
         [Key]
-        public int? Id { get; set; }
+        public int Id { get; set; }
         [ForeignKey(nameof(Post))]
         public int PostId { get; set; }
         public  PostEntity Post { get; set; }

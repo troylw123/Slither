@@ -13,6 +13,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Slither.Data;
+using Slither.Services.Comment;
+using Slither.Services.Posts;
+using Slither.Services.Like;
 using Slither.Services.User;
 using Slither.Services.Reply;
 
@@ -34,9 +37,10 @@ namespace Slither.WebAPI
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
             services.AddHttpContextAccessor();
-
+            services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IReplyServices, ReplyService>();
+            services.AddScoped<IPostService, PostService>();
+            services.AddScoped<ILikeService, LikeService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
