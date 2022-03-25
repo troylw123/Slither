@@ -22,5 +22,10 @@ namespace Slither.Data.Entities
         [Required]
         public DateTime DateCreated {get; set;}
 
+        public List<PostEntity> Posts { get; set; }
+        public List<CommentEntity> Comments { get; set; }
+        public List<ReplyEntity> Replies { get; set; }
+        public List<LikeEntity> Likes { get; set; }
+
     }
 }
